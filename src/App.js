@@ -13,7 +13,7 @@ import axios from "axios";
 const App = (props) => {
   const [movies, setMovies] = useState([]);
   const [favoriteMovies, setFavoriteMovies] = useState([]);
-
+  const [darkMode, setDarkMode] = useState(false);
   const { push } = useHistory;
   useEffect(() => {
     axios
@@ -37,7 +37,7 @@ const App = (props) => {
   };
 
   const addToFavorites = (movie) => {
-    if (!favoriteMovies.find((mov) => mov === movie.id)) {
+    if (!favoriteMovies.find((mov) => mov.id === movie.id)) {
       setFavoriteMovies([...favoriteMovies, movie]);
     } else {
       console.log("error");
@@ -45,11 +45,11 @@ const App = (props) => {
   };
 
   return (
-    <div>
-      <nav className="bg-zinc-800 px-6 py-3">
+    <div className={darkMode && `dark bg-slate-900 h-screen`}>
+      <nav className="bg-zinc-800 px-6 py-3 dark:bg-gray-800">
         <h1 className="text-xl text-white">HTTP / CRUD Film Projesi</h1>
       </nav>
-
+      <button onClick={() => setDarkMode(!darkMode)}>Dark ON/OFF</button>
       <div className="max-w-4xl mx-auto px-3 pb-4">
         <MovieHeader />
         <div className="flex flex-col sm:flex-row gap-4">
